@@ -1,26 +1,19 @@
 # Jupyter + MongoDB
 
-Includes example Jupyter notebook to push data to MongoDB, and a [mongo-express](https://github.com/mongo-express) admin interface. Runs the [Jupyter Data Science Notebook](https://hub.docker.com/r/jupyter/datascience-notebook/) container with an installation of [Zipline](https://github.com/quantopian/zipline).
+Includes example Jupyter notebook to push data to MongoDB, and a [mongo-express](https://github.com/mongo-express) admin interface. Runs the [Jupyter Data Science Notebook](https://hub.docker.com/r/jupyter/datascience-notebook/) container
 
 ## Instructions
+Start the docker containers:
 
-1. Clone this repository and `cd` into the directory:
+`docker-compose up`
 
-    `git clone https://github.com/aeksco/docker_jupyter_mongodb.git`
+**NOTE** - there's a unique token you'll need to access the Jupyter notebook server.
 
-    `cd docker_jupyter_mongodb`
+The docker-compose terminal will print out a self-authenticating URL, which looks like:
 
-2. Start the docker containers:
+`http://localhost:8888/?token=8a78623a6eadf3433f0b1ccef1049b2ce525fef20823a12d`
 
-    `docker-compose up`
-
-    **NOTE** - there's a unique token you'll need to access the Jupyter notebook server.
-
-    The docker-compose terminal will print out a self-authenticating URL, which looks like:
-
-    `http://localhost:8888/?token=8a78623a6eadf3433f0b1ccef1049b2ce525fef20823a12d`
-
-    Opening that URL will take you to the notebook server.
+Opening that URL will take you to the notebook server.
 
 ## Usage
 
@@ -37,25 +30,3 @@ Includes example Jupyter notebook to push data to MongoDB, and a [mongo-express]
 - You may run a command inside the `jupyter` docker container as the root user with the following command:
 
   `docker-compose run --user="root" jupyter pip install pandas`
-
-
-## Optional NGINX Configuration
-- Run the following to setup an NGINX reverse-proxy to the Jupyter Notebook server
-  ```
-  sudo apt-get update
-  sudo apt-get install nginx
-  ```
-
-- Copy the contents of `NGINX_EXAMPLE` into `/etc/nginx/sites-available/my_site`
-
-- Simlink the file from `sites-available` to `sites-enabled`
-
-  `ln -s /etc/nginx/sites-available/my_site /etc/nginx/sites-enabled/my_site`
-
-- Control NGINX with the following system commands:
-
-    ```
-    sudo systemctl start nginx
-    sudo systemctl stop nginx
-    sudo systemctl restart nginx
-    ```
